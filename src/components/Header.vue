@@ -1,6 +1,8 @@
 <template>
   <div class="header">
-    <IconFleche v-if="hasFleche"/>
+    <router-link to="/">
+      <IconFleche v-if="hasFleche"/>
+    </router-link>
     <h1>{{titre}}</h1>
     <div v-if="hasRechercheEtFavoris">Recherche</div>
   </div>
@@ -23,6 +25,7 @@ const props = defineProps({
   border-bottom: #4DE3ED 2px solid;
   padding-left: 60px;
   padding-right: 60px;
+  height: 150px;
 }
 
 h1 {
