@@ -4,7 +4,9 @@
       <IconFleche v-if="hasFleche"/>
     </router-link>
     <h1>{{titre}}</h1>
-    <div v-if="hasRechercheEtFavoris">Recherche</div>
+    <div v-if="hasRechercheEtFavoris" class="recherche-et-favoris">
+      Recherche
+    </div>
   </div>
 </template>
 
@@ -19,8 +21,8 @@ const props = defineProps({
 
 <style scoped>
 .header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
   border-bottom: #4DE3ED 2px solid;
   padding-left: 60px;
@@ -30,5 +32,10 @@ const props = defineProps({
 
 h1 {
   color: #4DE3ED;
+  justify-self: center;
+}
+
+.recherche-et-favoris {
+  justify-self: flex-end;
 }
 </style>
