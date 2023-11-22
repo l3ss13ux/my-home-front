@@ -9,7 +9,10 @@
       Votre demande de visite a été envoyée
     </div>
     <div v-if="annonce" class="annonce">
-      <img :src="'/images/' + annonce.image">
+      <div class="image-et-favori">
+        <button class="bouton-favori"><IconCoeur/></button>
+        <img :src="'/images/' + annonce.image">
+      </div>
       <div class="informations-annonce">
         <div class="titre-et-description">
           <h3>{{annonce.titre}}</h3>
@@ -34,6 +37,7 @@ import {Annonce} from "@/model/Annonce";
 import Header from "@/components/Header.vue";
 import {getAnnonce} from "@/service/AnnonceService";
 import {ref} from "vue";
+import IconCoeur from "@/components/icons/IconCoeur.vue";
 
 const props = defineProps({
   id: Number
@@ -60,9 +64,21 @@ getAnnonce(props.id).then(result => annonce.value = result);
   align-items: center;
 }
 
-img {
+.image-et-favori {
   width: 40%;
+  position: relative;
+}
+
+img {
+  width: 100%;
   height: auto;
+}
+
+.bouton-favori {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  right: 0px;
 }
 
 .informations-annonce {
@@ -71,7 +87,7 @@ img {
   gap: 10px;
 }
 
-button {
+.bouton-visite button {
   background-color: #4DE3ED;
   color: white;
   text-align: center;
