@@ -1,12 +1,11 @@
 <template>
   <Header
       titre="Accueil"
-      hasFleche="true"
       hasRechercheEtFavoris="true"
   >
   </Header>
   <div class="liste-annonces">
-    <router-link :to="'/ma-selection/' + annonce.id" v-for="annonce in annonces" :key="annonce.id">
+    <router-link :to="'/ma-selection/' + annonce.id" v-for="annonce in annonces" :key="annonce.id" class="router">
       <AnnonceCard :annonce="annonce"/>
     </router-link>
   </div>
@@ -27,5 +26,9 @@ let annonces = ref([]);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-items: center;
+}
+
+.router {
+  text-decoration: none;
 }
 </style>

@@ -2,7 +2,7 @@
   <div>
     <img :src="'/images/'+ annonce.image">
     <div class="libelle-annonce">
-      <p>{{annonce.titre}}</p>
+      <p>{{annonce.ville}}</p>
       <p>{{ annonce.prix }} €</p>
     </div>
   </div>
@@ -29,5 +29,6 @@ p {
 .libelle-annonce {
   background-color: #D9D9D9;
   padding: 4px 8px;
+  color: black;
 }
 </style>
