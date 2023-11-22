@@ -8,15 +8,23 @@
       <span class="fermer-bouton" @click="fermerNotification">&times;</span>
       Votre demande de visite a été envoyée
     </div>
-    <div v-if="annonce" class="body-annonce">
+    <div v-if="annonce" class="annonce">
       <img :src="'/images/' + annonce.image">
-      <div class="titre-et-prix">
-        <h3>{{annonce.titre}}</h3>
-        <h2>{{annonce.prix}} €</h2>
+      <div class="informations-annonce">
+        <div class="titre-et-description">
+          <h3>{{annonce.titre}}</h3>
+          <p>{{annonce.codePostal}} {{annonce.ville}}</p>
+          <p>{{annonce.description}}</p>
+        </div>
+        <div class="prix-et-bouton">
+          <div class="prix">
+            <h2>{{annonce.prix}} €</h2>
+          </div>
+          <div class="bouton-visite">
+            <button @click="faireUneVisite">Faire une visite</button>
+          </div>
+        </div>
       </div>
-      <p>{{annonce.codePostal}} {{annonce.ville}}</p>
-      <p>{{annonce.description}}</p>
-      <button @click="faireUneVisite">Faire une visite</button>
     </div>
   </div>
 </template>
@@ -46,19 +54,21 @@ getAnnonce(props.id).then(result => annonce.value = result);
 </script>
 
 <style scoped>
-.body-annonce {
-  padding: 0 520px;
+.annonce {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 img {
-  width: 700px;
-  height: 490px;
+  width: 40%;
+  height: auto;
 }
 
-.titre-et-prix {
+.informations-annonce {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  width: 40%;
+  gap: 10px;
 }
 
 button {
@@ -89,5 +99,23 @@ button {
 
 .fermer-bouton:hover {
   color: white;
+}
+
+.titre-et-description {
+  width: 60%;
+}
+
+.prix-et-bouton {
+  width: 40%;
+}
+
+.prix {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bouton-visite {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
