@@ -10,7 +10,8 @@
     </div>
     <div v-if="annonce" class="annonce">
       <div class="image-et-favori">
-        <button class="bouton-favori"><IconCoeur/></button>
+        <button v-if="estFavori()" @click="enleverDesFavoris" class="bouton-favori"><IconCoeurCoche/></button>
+        <button v-else @click="mettreEnFavori" class="bouton-favori"><IconCoeurDecoche/></button>
         <img :src="'/images/' + annonce.image">
       </div>
       <div class="informations-annonce">
@@ -36,22 +37,46 @@
 import {Annonce} from "@/model/Annonce";
 import Header from "@/components/Header.vue";
 import {getAnnonce} from "@/service/AnnonceService";
-import {ref} from "vue";
-import IconCoeur from "@/components/icons/IconCoeur.vue";
+import {onMounted, ref} from "vue";
+import IconCoeurDecoche from "@/components/icons/IconCoeurDecoche.vue";
+import IconCoeurCoche from "@/components/icons/IconCoeurCoche.vue";
 
 const props = defineProps({
-  id: Number
+  id: String
 });
 
 let annonce = ref<Annonce | null>(null);
 let afficherNotification = ref(false);
+let favoris = ref([]);
 
-function faireUneVisite(event) {
+onMounted(() => {
+  if (localStorage.getItem("favorisId")) {
+    favoris.value = JSON.parse(localStorage.getItem("favorisId")!);
+  }
+});
+
+function faireUneVisite() {
   afficherNotification.value = true;
 }
 
-function fermerNotification(event) {
+function fermerNotification() {
   afficherNotification.value = false;
+}
+
+function mettreEnFavori() {
+  favoris.value.push(props.id);
+  const parsed = JSON.stringify(favoris.value);
+  localStorage.setItem("favorisId", parsed);
+}
+
+function enleverDesFavoris() {
+  favoris.value = favoris.value.filter((favori) => favori !== props.id);
+  const parsed = JSON.stringify(favoris.value);
+  localStorage.setItem("favorisId", parsed);
+}
+
+function estFavori(){
+  return favoris.value.includes(props.id);
 }
 
 getAnnonce(props.id).then(result => annonce.value = result);

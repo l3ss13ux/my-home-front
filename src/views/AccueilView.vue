@@ -13,12 +13,13 @@
 
 <script lang="ts" setup>
 import {getAnnonces} from '@/service/AnnonceService.ts'
-import {ref} from 'vue';
+import {onMounted, ref} from 'vue';
 import AnnonceCard from "@/components/AnnonceCard.vue";
 import Header from "@/components/Header.vue";
 
 let annonces = ref([]);
-  getAnnonces().then(result => annonces.value = result);
+
+getAnnonces().then(result => annonces.value = result);
 </script>
 
 <style scoped>
