@@ -12,14 +12,30 @@
 </template>
 
 <script lang="ts" setup>
-import {getAnnonces} from '@/service/AnnonceService.ts'
-import {onMounted, ref} from 'vue';
+import {getAnnonces, getAnnoncesParVille} from '@/service/AnnonceService.ts'
+import {ref, watch} from 'vue';
 import AnnonceCard from "@/components/AnnonceCard.vue";
 import Header from "@/components/Header.vue";
+import {useRoute} from "vue-router";
 
 let annonces = ref([]);
+const route = useRoute();
 
-getAnnonces().then(result => annonces.value = result);
+if(route.query.q) {
+  getAnnoncesParVille(route.query.q as String).then(result => annonces.value = result);
+} else {
+  getAnnonces().then(result => annonces.value = result);
+}
+
+
+
+watch(() => route.query.q, async nouvelleRecherche => {
+  if (nouvelleRecherche) {
+    annonces.value = await getAnnoncesParVille(nouvelleRecherche as String)
+  } else {
+    annonces.value = await getAnnonces();
+  }
+});
 </script>
 
 <style scoped>

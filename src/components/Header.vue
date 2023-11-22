@@ -5,13 +5,15 @@
     </router-link>
     <h1>{{titre}}</h1>
     <div v-if="hasRechercheEtFavoris" class="recherche-et-favoris">
-      Recherche
+      <Recherche/>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import IconFleche from "@/components/icons/IconFleche.vue";
+import Recherche from "@/components/Recherche.vue";
+
 const props = defineProps({
   hasFleche: {type: Boolean, required: false, default: false},
   hasRechercheEtFavoris: {type: Boolean, required: false},
